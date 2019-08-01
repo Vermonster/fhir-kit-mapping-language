@@ -1,0 +1,13 @@
+{
+  "name": "fhir-kit-mapping-language",
+  "version": "0.0.0",
+  "description": "JS implementation of the HL7 FHIR Mapping Language",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "generate": "java -Xmx500M -cp \"./tmp/antlr-4.7.1-complete.jar:$CLASSPATH\" org.antlr.v4.Tool -o generated -visitor -Dlanguage=JavaScript -Xexact-output-dir grammars/js_mapping.g4"
+  },
+  "dependencies": {
+    "antlr4": "^4.7.2"
+  }
+}
