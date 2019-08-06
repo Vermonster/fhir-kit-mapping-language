@@ -9,7 +9,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "antlr4": "^4.7.2"
+    "antlr4": "^4.7.2",
+    "lodash": "^4.17.15"
   },
   "devDependencies": {
     "jest": "^24.8.0"
