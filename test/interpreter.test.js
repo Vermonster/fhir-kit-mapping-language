@@ -1,27 +1,29 @@
 const { interpreter }= require('../lib/interpreter');
 
 
-// 1. create variable src for source
-// 2. create variable tgt for target
-// 3. create variable v for src.name
-// 4. assign tgt.name to the value of v
+// 1. group-level: create variable src for source
+// 2. group-level: create variable tgt for target
+// 3. rule-level: create variable v for src.name
+// 4. rule-level: assign tgt.name to the value of v
 test('simple assignment', () => {
   const structureMap = `map "http://test.com" = test
   group example(source src, target tgt) {
     src.name as v -> tgt.name = v;
   }`;
-  const source = { name: 'bob' };
 
+  const source = { name: 'bob' };
   const target = interpreter(source, structureMap);
+
   expect(target).toEqual(source);
 });
 
-
-// 1. create variable src for source
-// 2. create variable tgt for target
-// 3. create variable vs for src.name
-// 4. create a new property on tgt of type 'name'
-// 5. call mapping (e.g. group) `name` and see above
+// 1. group-level: create variable src for source
+// 2. group-level: create variable tgt for target
+// 3. rule-level: create variable vs for src.name
+// 4. rule-level: create a new property on tgt of type 'name',
+//      assign to variable vt
+// 5. rule-level: call mapping (e.g. group) `name()` passing in vs and vt,
+//      and see above process.
 test.skip('assignment with groups', () => {
   const structureMap = `map "http://test.com" = test
   group example(source src, target tgt) {
@@ -30,22 +32,48 @@ test.skip('assignment with groups', () => {
 
   group name(source src, target tgt) {
     src.name as v -> tgt.name = v;
-  }
-  `;
+  } `;
+
   const source = { name: 'bob' };
+  const target = interpreter(source, structureMap);
 
-  const target = fhirMap(source, structureMap);
   expect(target).toEqual(source);
-
 });
 
 
-// 1. load structure def for Fake1 in source NS
-// 2. load structure def for Fake2 in target NS
-// 3. load structure map 'Map1to2'
-// 2. create a new attribute on the target called name
-// 3. perform the appropiate mapping for that type
-test.skip('simple form', () => {
+// 1. group-level: create variable src for source
+// 2. group-level: create variable tgt for target
+// 3. rule-level: create variable sn for source.name
+// 4. rule-level: create variable tn for target.name
+// 5. rule-level: run sub-rule with variables in scope
+// 5a. sub-rule-level(1): create variable f for sn.first
+// 5b. sub-rule-level(1): assign tn.first to the value of f
+// 5c. sub-rule-level(2): create variable l for sn.last
+// 5d. sub-rule-level(2): assign tn.last to the value of l
+test.skip('dependent rule', () => {
+  const structureMap = `map "http://test.com" = test
+
+  group example(source src, target tgt) {
+    src.name as sn -> tgt.name as tn then {
+      sn.first as f -> tn.first = f;
+      sn.last as l -> tn.last = l;
+    };
+  }`;
+
+  const source = { name: { first: 'Rob', last: 'Bor' } };
+  const target = interpreter(source, structureMap);
+  expect(target).toEqual(source);
+});
+
+// 1. structure-map: load structure def for Fake1 in source NS
+// 2. structure-map: load structure def for Fake2 in source NS
+// 3. structure-map: load groups defined in "Map1to2"
+// 4. group-level: create variable src for source
+// 5. group-level: create variable tgt for target
+// 6. rule-level: lookup data-type for src.created (type=date)
+// 7. rule-level: create attribute on tgt with the same name and type
+// 8. rule-level: apply the mapping rule for `date`
+test.skip('simple rule using structure defs and imported maps', () => {
   const structureMap = `map "http://test.com" = test
 
   uses "Fake1" alias Fake1 as source
@@ -54,34 +82,10 @@ test.skip('simple form', () => {
   imports "Map1to2"
 
   group example(source src, target tgt) {
-    src.created -> tgt.created ;
+    src.created -> tgt.created;
   }`;
 
-  const source = { name: 'bob' };
-
-  const target = fhirMap(source, structureMap);
+  const source = { created: '2013-04-05' };
+  const target = interpreter(source, structureMap);
   expect(target).toEqual(source);
-});
-
-
-// 1. variable: store src as source
-// 2. variable: store tgt as target
-// 3. variable: store vss as src.name
-// 4. path: vss: as 'src.name'
-// 5. create tgt.name
-// 5. path: vvt: as 'tgt.name'
-// 6. create the value vvt to be vvs
-
-
-test.skip('Transform.value', () => {
-  const source =  { a: { b: { c: 'hello' }}};
-  const target = { a: { z: 'existing' }};
-
-  const sourcePath = ['a','b','c'];
-  const targetPath = ['a','d','e'];
-
-  const expected = { a: { z: 'existing', d: { e: 'hello'}}};
-  const transform = new Transform(source, target, '->', sourcePath, targetPath);
-
-  expect(transform.evaluate()).toEqual(expected);
 });
