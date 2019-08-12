@@ -1,18 +1,4 @@
-const { Transform, fhirMap, typesByDefinitionAndPath} = require('./fhir-mapping-language');
-
-const fake1StructureDefinition = require('../fixtures/fake-v1-structure-definition.json');
-
-test('typesByDefinitionAndPath', () => {
-  const type = typesByDefinitionAndPath(fake1StructureDefinition,
-    'created');
-  expect(type).toEqual(['date']);
-});
-
-test('typesByDefinitionAndPath [x]', () => {
-  const type = typesByDefinitionAndPath(fake1StructureDefinition,
-    'archived');
-  expect(type).toEqual(['date', 'boolean']);
-});
+const { interpreter }= require('../lib/interpreter');
 
 
 // 1. create variable src for source
@@ -26,7 +12,7 @@ test('simple assignment', () => {
   }`;
   const source = { name: 'bob' };
 
-  const target = fhirMap(source, structureMap);
+  const target = interpreter(source, structureMap);
   expect(target).toEqual(source);
 });
 
@@ -85,9 +71,6 @@ test.skip('simple form', () => {
 // 5. create tgt.name
 // 5. path: vvt: as 'tgt.name'
 // 6. create the value vvt to be vvs
-
-
-
 
 
 test.skip('Transform.value', () => {
