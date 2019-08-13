@@ -1,21 +1,60 @@
-const { interpreter }= require('../lib/interpreter');
+const Engine = require('../lib/engine');
 
+test('simple assignment', () => {
+  const map = `map "http://test.com" = test
+  group example(source src, target tgt) {
+    src.name as v -> tgt.name = v;
+  }`;
+
+  const sources = [{ name: 'bob' }];
+  const engine = new Engine({sources, map});
+  const targets = engine.execute();
+
+  expect(targets).toEqual(sources);
+});
 
 // 1. group-level: create variable src for source
 // 2. group-level: create variable tgt for target
 // 3. rule-level: create variable v for src.name
 // 4. rule-level: assign tgt.name to the value of v
-test('simple assignment', () => {
-  const structureMap = `map "http://test.com" = test
-  group example(source src, target tgt) {
-    src.name as v -> tgt.name = v;
-  }`;
+//class StructureMap() {
+  //init() {
+  //}
 
-  const source = { name: 'bob' };
-  const target = interpreter(source, structureMap);
+  //transform(source) {
+    //const target = {};
+    //this.defaultGroup.transform(source, target);
+    //return target;
+  //}
+//}
 
-  expect(target).toEqual(source);
-});
+//class Group() {
+  //init() {
+  //}
+
+  //transform(source, target) {
+
+  //}
+//}
+
+//const ruleTarget = new RuleTarget("name", "v", {});
+//const ruleSource = new RuleSource("name", { alias: "v" }, {});
+//const rule = new Rule(ruleSource, ruleTarget, {});
+//const defaultGroup = new Group("example", [rule], {});
+//const structureMap = new StructureMap(map, defaultGroup, []);
+
+//const target = structureMap.transform({ name: "Bob" });
+//test('simple assignment', () => {
+  //const structureMap = `map "http://test.com" = test
+  //group example(source src, target tgt) {
+    //src.name as v -> tgt.name = v;
+  //}`;
+
+  //const source = { name: 'bob' };
+  //const target = interpreter(source, structureMap);
+
+  //expect(target).toEqual(source);
+//});
 
 // 1. group-level: create variable src for source
 // 2. group-level: create variable tgt for target
