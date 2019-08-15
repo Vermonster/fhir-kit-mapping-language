@@ -5,7 +5,7 @@ test('simple assignment', () => {
   group example(source src, target tgt) {
     src.name as v -> tgt.name = v;
     src.height as v -> tgt.height = v;
-    src.status as v -> tgt.newStatus = v;
+    src.status as ss -> tgt.newStatus = ss;
   }`;
 
   const sources = [{ name: 'bob', height: 'tall', status: 'active' }];
