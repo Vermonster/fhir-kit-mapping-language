@@ -4,13 +4,17 @@ test('simple assignment', () => {
   const map = `map "http://test.com" = test
   group example(source src, target tgt) {
     src.name as v -> tgt.name = v;
+    src.height as v -> tgt.height = v;
+    src.status as v -> tgt.newStatus = v;
   }`;
 
-  const sources = [{ name: 'bob' }];
+  const sources = [{ name: 'bob', height: 'tall', status: 'active' }];
+
   const engine = new Engine({sources, map});
   const targets = engine.execute();
 
-  expect(targets).toEqual(sources);
+  const expectedTargets = [{ name: 'bob', height: 'tall', newStatus: 'active' }];
+  expect(targets).toEqual(expectedTargets);
 });
 
 // 1. group-level: create variable src for source
