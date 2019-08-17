@@ -19,5 +19,6 @@ module.exports = {
     "jest"
   ],
   rules: {
+    "semi": [2, "always"]
   }
 }
