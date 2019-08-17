@@ -32,6 +32,35 @@ describe('copy, concrete syntax', () => {
     expect(targets).toEqual(expectedTargets);
   });
 
+  test('single rule, multiple source contexts, multiple target transforms', () => {
+    const map = `map "http://test.com" = test
+    group example(source src, target tgt) {
+      src.name as v, src.size as s -> tgt.firstName = v, tgt.size = s;
+    }`;
+
+    const inputs = [{ name: 'bob', size: 'small' }];
+
+    const engine = new Engine({inputs, map});
+    const targets = engine.execute();
+
+    const expectedTargets = [{ firstName: 'bob', size: 'small' }];
+    expect(targets).toEqual(expectedTargets);
+  });
+
+  test('single rule, single source, multiple target transforms', () => {
+    const map = `map "http://test.com" = test
+    group example(source src, target tgt) {
+      src.name as v -> tgt.name = v, tgt.oldName = v;
+    }`;
+
+    const inputs = [{ name: 'bob' }];
+
+    const engine = new Engine({inputs, map});
+    const targets = engine.execute();
+
+    const expectedTargets = [{ name: 'bob', oldName: 'bob' }];
+    expect(targets).toEqual(expectedTargets);
+  });
 
   test('multiple rules, single source, new target', () => {
     const map = `map "http://test.com" = test
