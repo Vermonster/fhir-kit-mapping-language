@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "antlr4": "^4.7.2",
-    "lodash": "^4.17.15"
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "eslint": "^6.1.0",
