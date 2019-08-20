@@ -9,7 +9,7 @@ describe('invocation', () => {
       };
     }`;
 
-    const inputs = [{ name: { firstName: 'bob', lastName: 'smith' }}];
+    const inputs = [{ name: { firstName: 'bob', lastName: 'smith' } }];
 
     const engine = new Engine({ inputs, map });
     const targets = engine.execute();
