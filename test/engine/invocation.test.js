@@ -1,16 +1,15 @@
 const Engine = require('../../lib/engine');
 
 describe('invocation', () => {
-  test.skip('dependent rule', () => {
+  test('dependent rule', () => {
     const map = `map "http://test.com" = test
     group example(source src, target tgt) {
-      src.name as sn -> tgt.name as tn then {
-        sn.first as fn -> tn.first = fn;
-        sn.last as ln -> tn.last = ln;
+      src.name as vn -> tgt.name as tn then {
+        vn.firstName as g -> tn.firstName = g;
       };
     }`;
 
-    const inputs = [{ name: { first: 'bob', last: 'smith' }}];
+    const inputs = [{ name: { firstName: 'bob', lastName: 'smith' }}];
 
     const engine = new Engine({ inputs, map });
     const targets = engine.execute();
