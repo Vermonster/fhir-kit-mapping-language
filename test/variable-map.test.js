@@ -4,7 +4,6 @@ let variableMap;
 
 beforeEach(() => {
   variableMap = new VariableMap();
-
   const source = { name: { firstName: 'Bob', lastName: 'Smith' } };
   variableMap.addItem({
     identifier: 'src',
@@ -21,6 +20,21 @@ beforeEach(() => {
     identifier: 'last',
     path: ['sn', 'lastName']
   });
+});
+
+it('#addItem() - duplicates overwrite', () => {
+  variableMap.addItem({
+    identifier: 'src',
+    value: { foo: 'bar' },
+    root: true
+  });
+
+  const value = variableMap.getValue('src');
+  expect(value).toEqual({ foo: 'bar' });
+
+  const { items } = variableMap;
+  const matches = items.filter(i => i.identifier === 'src');
+  expect(matches.length).toEqual(1);
 });
 
 describe('#resolvePath()', () => {
