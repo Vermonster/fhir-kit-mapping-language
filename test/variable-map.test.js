@@ -38,6 +38,11 @@ describe('#resolvePath()', () => {
     const path = variableMap.resolvePath(['sn', 'lastName']);
     expect(path).toEqual(['src', 'name', 'lastName']);
   });
+
+  it('does not resolve bad paths', () => {
+    const path = variableMap.resolvePath('foo');
+    expect(path).toEqual([]);
+  });
 });
 
 describe('#getValue()', () => {
@@ -59,6 +64,12 @@ describe('#getValue()', () => {
   it('gets value array', () => {
     const value = variableMap.getValue(['sn', 'firstName']);
     expect(value).toEqual('Bob');
+  });
+
+  it('thows error with bad paths', () => {
+    expect(() => {
+      variableMap.getValue('foo');
+    }).toThrow();
   });
 });
 
@@ -85,5 +96,11 @@ describe('#setValue()', () => {
     variableMap.setValue(['sn', 'middleName'], 'Peter');
     const value = variableMap.getValue('sn');
     expect(value).toEqual({ firstName: 'Bob', middleName: 'Peter', lastName: 'Smith' });
+  });
+
+  it('thows error with bad paths', () => {
+    expect(() => {
+      variableMap.setValue('foo', 'test');
+    }).toThrow();
   });
 });
