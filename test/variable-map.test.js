@@ -37,6 +37,31 @@ it('#addItem() - duplicates overwrite', () => {
   expect(matches.length).toEqual(1);
 });
 
+it('#dependents()', () => {
+  let dependents = variableMap.dependents('src');
+  expect(dependents.map(d => d.identifier)).toEqual(['sn', 'last']);
+
+  dependents = variableMap.dependents('sn');
+  expect(dependents.map(d => d.identifier)).toEqual(['last']);
+
+  dependents = variableMap.dependents('last');
+  expect(dependents.map(d => d.identifier)).toEqual([]);
+});
+
+describe('#delItem()', () => {
+  it('#delItem() - leaf', () => {
+    variableMap.delItem('last');
+    expect(variableMap.find('last')).toBe(undefined);
+  });
+
+  it('#delItem() - dependents', () => {
+    variableMap.delItem('src');
+    expect(variableMap.find('last')).toBe(undefined);
+    expect(variableMap.find('sn')).toBe(undefined);
+    expect(variableMap.find('src')).toBe(undefined);
+  });
+});
+
 describe('#resolvePath()', () => {
   it('resolves string - flat', () => {
     const path = variableMap.resolvePath('sn');
