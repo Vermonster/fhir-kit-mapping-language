@@ -12,8 +12,8 @@ describe('dependent', () => {
 
     const inputs = [{ name: { firstName: 'bob', lastName: 'smith' } }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     expect(targets).toEqual([{ name: { firstName: 'bob', familyName: 'smith' } }]);
   });
@@ -32,8 +32,8 @@ describe('dependent', () => {
 
     const inputs = [{ status: 'active', name: { firstName: 'bob', lastName: 'smith' } }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     expect(targets).toEqual([{ statusCode: 'active', name: { firstName: 'bob', familyName: 'smith' } }]);
   });
