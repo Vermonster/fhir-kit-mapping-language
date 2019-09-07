@@ -93,7 +93,7 @@ describe('literal', () => {
     expect(targets[0].value instanceof Date).toBe(true);
   });
 
-  test.skip('time', () => {
+  test.skip('time', () => { // eslint-disable-line jest/no-disabled-tests
     // Pending time...
   });
 });

@@ -1,5 +1,0 @@
-map "http://hl7.org/fhir/" = "R4 to R3 Primitive Conversions"
-
-group import1(source src, target tgt) {
-	src.value as v -> tgt.value = v;
-}
