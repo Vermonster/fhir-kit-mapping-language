@@ -45,7 +45,5 @@ describe('import', () => {
     const engine = new Engine([map1, map2, map3]);
     const targets = engine.execute('http://test.com/1', inputs);
     expect(targets).toEqual(inputs);
-
   });
-
 });

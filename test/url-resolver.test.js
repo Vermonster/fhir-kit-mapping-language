@@ -1,10 +1,10 @@
 const { URL } = require('url');
 const fs = require('fs');
-const UrlResolver = require ('../lib/url-resolver.js');
+const UrlResolver = require('../lib/url-resolver.js');
 
 const filePathBuilder = (fixtureFile) => {
-  return `file://${__dirname }/fixtures/${fixtureFile}.json`;
-}
+  return `file://${__dirname}/fixtures/${fixtureFile}.json`;
+};
 
 const urlResolver = new UrlResolver();
 
