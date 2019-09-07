@@ -1,4 +1,4 @@
-const { VariableMap } = require('../lib/variable-map');
+const VariableMap = require('../lib/variable-map');
 
 let variableMap;
 
