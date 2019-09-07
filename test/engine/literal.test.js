@@ -8,8 +8,8 @@ describe('literal', () => {
     }`;
 
     const inputs = [];
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ value: 'test' }];
     expect(targets).toEqual(expectedTargets);
@@ -23,8 +23,8 @@ describe('literal', () => {
     }`;
 
     const inputs = [];
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ value: 121 }];
     expect(targets).toEqual(expectedTargets);
@@ -40,8 +40,8 @@ describe('literal', () => {
     }`;
 
     const inputs = [];
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ value: 1.21 }];
     expect(targets).toEqual(expectedTargets);
@@ -55,8 +55,8 @@ describe('literal', () => {
     }`;
 
     const inputs = [];
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ value: true }];
     expect(targets).toEqual(expectedTargets);
@@ -70,8 +70,8 @@ describe('literal', () => {
     }`;
 
     const inputs = [];
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ value: false }];
     expect(targets).toEqual(expectedTargets);
@@ -85,15 +85,15 @@ describe('literal', () => {
     }`;
 
     const inputs = [];
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ value: new Date('2019-08-19T16:22:23.118Z') }];
     expect(targets).toEqual(expectedTargets);
     expect(targets[0].value instanceof Date).toBe(true);
   });
 
-  test.skip('time', () => {
+  test.skip('time', () => { // eslint-disable-line jest/no-disabled-tests
     // Pending time...
   });
 });

@@ -9,8 +9,8 @@ describe('copy, concrete syntax', () => {
 
     const inputs = [{ name: 'bob' }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ name: 'bob' }];
     expect(targets).toEqual(expectedTargets);
@@ -24,8 +24,8 @@ describe('copy, concrete syntax', () => {
 
     const inputs = [{ name: 'bob' }, { size: 'average' }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ name: 'bob', size: 'average' }];
     expect(targets).toEqual(expectedTargets);
@@ -39,8 +39,8 @@ describe('copy, concrete syntax', () => {
 
     const inputs = [{ name: 'bob', size: 'small' }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ firstName: 'bob', size: 'small' }];
     expect(targets).toEqual(expectedTargets);
@@ -54,8 +54,8 @@ describe('copy, concrete syntax', () => {
 
     const inputs = [{ name: 'bob' }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ name: 'bob', oldName: 'bob' }];
     expect(targets).toEqual(expectedTargets);
@@ -71,8 +71,8 @@ describe('copy, concrete syntax', () => {
 
     const inputs = [{ name: 'bob', size: 'small', active: true }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ name: 'bob', size: 'small', activeStatus: true }];
     expect(targets).toEqual(expectedTargets);
@@ -87,8 +87,8 @@ describe('copy, concrete syntax', () => {
 
     const inputs = [{ name: 'bob' }, { size: 'small' }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ name: 'bob', size: 'small' }];
     expect(targets).toEqual(expectedTargets);
@@ -103,8 +103,8 @@ describe('copy, concrete syntax', () => {
 
     const inputs = [{ name: 'bob', size: 'small' }];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [{ name: 'bob' }, { size: 'small' }];
     expect(targets).toEqual(expectedTargets);
@@ -125,8 +125,8 @@ describe('copy, concrete syntax', () => {
       { active: true }
     ];
 
-    const engine = new Engine({ inputs, map });
-    const targets = engine.execute();
+    const engine = new Engine(map);
+    const targets = engine.execute('http://test.com', inputs);
 
     const expectedTargets = [
       { name: 'bob', active: true },

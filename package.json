@@ -6,11 +6,13 @@
   "license": "MIT",
   "scripts": {
     "generate": "java -Xmx500M -cp \"./tmp/antlr-4.7.1-complete.jar:$CLASSPATH\" org.antlr.v4.Tool -o generated -visitor -Dlanguage=JavaScript -Xexact-output-dir grammars/js_mapping.g4",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "dependencies": {
     "antlr4": "^4.7.2",
     "lodash": "^4.17.15",
+    "micromatch": "^4.0.2",
     "moment": "^2.24.0"
   },
   "devDependencies": {
